@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GigShield Portal
+
+Human interface for gig economy escrow, payments, and cross-border withdrawals on Stellar.
+
+## Views
+
+### Freelancer Dashboard (`/freelancer`)
+
+- Live milestone tracker with countdown timers on escrow deadlines
+- Escrow status overview (active, completed, disputed)
+- **Withdraw to Local Bank** — SEP-24 anchor integration via Yellow Card (Africa) and Anclap (LATAM)
+- Real-time balance and progress tracking per escrow
+
+### Enterprise Invoice Builder (`/enterprise`)
+
+- Dynamic invoice table for funding multiple contractor milestones in one batch
+- Per-contractor input: Stellar address, milestone description, amount, token, deadline
+- **Fund All via Freighter** — single-click batch funding using Freighter Wallet on Stellar Testnet
+- Transaction confirmation with Stellar Expert link
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS v4 + Shadcn/ui (Base UI)
+- **Wallet:** Freighter Browser Extension
+- **Blockchain:** Stellar Testnet (Soroban)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Connect Freighter wallet to enable funding actions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── freelancer/page.tsx    # Freelancer dashboard with milestones + withdraw
+│   └── enterprise/page.tsx    # Invoice builder for batch milestone funding
+├── components/
+│   ├── sidebar.tsx            # Navigation sidebar
+│   ├── wallet-connect.tsx     # Freighter wallet connection
+│   ├── milestone-card.tsx     # Milestone list + countdown + summary cards
+│   ├── withdraw-dialog.tsx    # SEP-24 anchor withdrawal dialog
+│   └── ui/                   # Shadcn/ui components
+└── lib/
+    ├── stellar.ts             # Freighter API wrapper
+    └── mock-data.ts           # Escrow, milestone, anchor sample data
+```
